@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Login from './components/Login/Login';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   const [data, setData] = useState(null);
@@ -14,13 +14,19 @@ function App() {
   console.log(data);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? 'Loading...' : data}</p>
-      </header>
+    <div>
+      <Navbar />
+      <br />
+      <Login />
     </div>
   );
 }
 
 export default App;
+
+// Spotify Color Palette
+// #1ed760 , #21e065
+// #b22c15
+// #2941ab
+// Google OAuth Button - #1877f2
+//
