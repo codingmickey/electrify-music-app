@@ -56,47 +56,6 @@ export default function ButtonAppBar() {
               sx={{
                 px: 2.3,
                 py: 3.3,
-                textTransform: 'capitalize',
-                fontWeight: 600,
-              }}
-              color="inherit"
-            >
-              Premuim
-            </Button>
-            <Button
-              className="navbar-links"
-              size="large"
-              sx={{
-                px: 2.3,
-                py: 3.3,
-                textTransform: 'capitalize',
-                fontWeight: 600,
-              }}
-              color="inherit"
-            >
-              Support
-            </Button>
-            <Button
-              className="navbar-links"
-              size="large"
-              sx={{
-                px: 2.3,
-                mr: 2.3,
-                py: 3.3,
-                textTransform: 'capitalize',
-                fontWeight: 600,
-              }}
-              color="inherit"
-            >
-              Download
-            </Button>
-            |
-            <Button
-              className="navbar-links"
-              size="large"
-              sx={{
-                px: 2.3,
-                py: 3.3,
                 ml: 2.3,
                 textTransform: 'capitalize',
                 fontWeight: 600,
