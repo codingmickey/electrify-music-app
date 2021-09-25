@@ -3,6 +3,10 @@ const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys');
 const User = require('../models/user-model');
 
+const passportJWT = require('passport-jwt');
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
+
 passport.use(
   new GoogleStrategy(
     {
@@ -11,12 +15,13 @@ passport.use(
       clientSecret: keys.google.clientSecret,
       callbackURL: '/auth/google/redirect',
     },
-    (accessToken, refreshToken, profile, done) => {
+    (accessToken, refreshToken, profile, cb) => {
       // check if user already exists in our db
       User.findOne({ googleId: profile.id }).then((currentUser) => {
         if (currentUser) {
           // user already there
           console.log('User Already there!');
+          cb(null, profile);
         } else {
           // Create new user
           new User({
@@ -27,8 +32,21 @@ passport.use(
             .then((newUser) => {
               console.log(`New user created: ${newUser}`);
             });
+          cb(null, profile);
         }
       });
+    }
+  )
+);
+
+passport.use(
+  new JWTStrategy(
+    {
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+      secretOrKey: keys.jwt.secret,
+    },
+    (jwtPayload, cb) => {
+      User.findById;
     }
   )
 );

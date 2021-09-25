@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
+import Body from './components/Body/Body';
 
 function App() {
   const [data, setData] = useState(null);
@@ -16,8 +17,8 @@ function App() {
   return (
     <div>
       <Navbar />
-      <br />
-      <Login />
+      {/* <Login /> */}
+      <Body />
     </div>
   );
 }

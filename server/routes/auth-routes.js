@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 // auth login
 router.get('/register', (req, res) => {
@@ -19,7 +21,7 @@ router.get('/register', (req, res) => {
   res.send('User Saved!');
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', (req, res, next) => {
   // const userEmail = req.body.email;
   // const userPassword = req.body.password;
   console.log('Login Route');
@@ -39,12 +41,34 @@ router.get(
 );
 
 // callback route for google to redirect
-router.get(
-  '/google/redirect',
-  passport.authenticate('google', { failureRedirect: '/auth/login' }),
-  (req, res) => {
-    res.send('Hurray surpassed the authentication');
-  }
-);
+router.get('/google/redirect', (req, res) => {
+  passport.authenticate(
+    'google',
+    {
+      session: false,
+      failureRedirect: '/auth/login',
+    },
+    (err, user, info) => {
+      if (err || !user) {
+        return res.status(400).json({
+          message: 'Something is not right',
+          user: user,
+        });
+      }
+
+      req.login(user, { session: false }, (err) => {
+        if (err) {
+          res.send(err);
+        }
+
+        // Generate a signed jwt token with contents of user object
+
+        const token = jwt.sign(user, keys.jwt.secret);
+        return res.json({ user, token });
+      });
+    }
+  )(req, res);
+  res.send('Hurray surpassed the authentication');
+});
 
 module.exports = router;
