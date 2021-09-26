@@ -1,7 +1,7 @@
 const express = require('express');
 
 const passportSetup = require('./config/passport-setup');
-const authRoutes = require('./routes/auth-routes');
+const userRouter = require('./routes/user');
 const mongoose = require('mongoose');
 
 // Express setting
@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
 // Set up routes
-app.use('/auth', authRoutes);
+app.use(userRouter);
 
 // Connect to monogodb
 main().catch((err) => console.log(err));
@@ -21,11 +21,6 @@ async function main() {
     console.log('Connect to mongodb');
   });
 }
-
-app.get('/', (req, res) => {
-  // res.sendFile(__dirname + '/public/html/login.html');
-  res.json({ message: 'Hello Everyone, this is from the server!' });
-});
 
 const PORT = process.env.PORT || 3001;
 

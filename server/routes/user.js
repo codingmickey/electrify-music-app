@@ -1,7 +1,24 @@
 const router = require('express').Router();
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Joi = require('@hapi/joi');
+
 const keys = require('../config/keys');
+const User = require('../models/user-model');
+
+const oauth = require('../controllers/oauth');
+
+const registerSchema = Joi.object({
+  name: Joi.string().min(3).required(),
+  email: Joi.string().min(6).required().email(),
+  password: Joi.string().min(6).required(),
+});
+
+// Home route
+router.get('/', (req, res) => {
+  res.send('Home Page');
+});
 
 // auth login
 router.get('/register', (req, res) => {
@@ -32,43 +49,9 @@ router.get('/logout', (req, res) => {
   // handle with passport
 });
 
-// login with google
-router.get(
-  '/google',
-  passport.authenticate('google', {
-    scope: ['profile'],
-  })
-);
-
+// OAUTH Routes for GOOGLE, login with google
+router.get('/auth/google', oauth.login);
 // callback route for google to redirect
-router.get('/google/redirect', (req, res) => {
-  passport.authenticate(
-    'google',
-    {
-      session: false,
-      failureRedirect: '/auth/login',
-    },
-    (err, user, info) => {
-      if (err || !user) {
-        return res.status(400).json({
-          message: 'Something is not right',
-          user: user,
-        });
-      }
-
-      req.login(user, { session: false }, (err) => {
-        if (err) {
-          res.send(err);
-        }
-
-        // Generate a signed jwt token with contents of user object
-
-        const token = jwt.sign(user, keys.jwt.secret);
-        return res.json({ user, token });
-      });
-    }
-  )(req, res);
-  res.send('Hurray surpassed the authentication');
-});
+router.get('/auth/google/redirect', oauth.callback);
 
 module.exports = router;
