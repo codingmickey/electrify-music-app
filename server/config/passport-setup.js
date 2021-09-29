@@ -1,6 +1,7 @@
+require('dotenv').config();
+
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-const keys = require('./keys');
 const User = require('../models/user-model');
 
 const passportJWT = require('passport-jwt');
@@ -11,8 +12,8 @@ passport.use(
   new GoogleStrategy(
     {
       // options for google strategy
-      clientID: keys.google.clientID,
-      clientSecret: keys.google.clientSecret,
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: '/auth/google/redirect',
     },
     (accessToken, refreshToken, profile, cb) => {
@@ -39,14 +40,14 @@ passport.use(
   )
 );
 
-passport.use(
-  new JWTStrategy(
-    {
-      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: keys.jwt.secret,
-    },
-    (jwtPayload, cb) => {
-      User.findById;
-    }
-  )
-);
+// passport.use(
+//   new JWTStrategy(
+//     {
+//       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+//       secretOrKey: keys.jwt.secret,
+//     },
+//     (jwtPayload, cb) => {
+//       User.findById;
+//     }
+//   )
+// );

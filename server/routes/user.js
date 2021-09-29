@@ -1,42 +1,24 @@
-const router = require('express').Router();
-const passport = require('passport');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const Joi = require('@hapi/joi');
-
-const keys = require('../config/keys');
-const User = require('../models/user-model');
+const express = require('express');
 
 const oauth = require('../controllers/oauth');
+const auth = require('../controllers/auth');
 
-const registerSchema = Joi.object({
-  name: Joi.string().min(3).required(),
-  email: Joi.string().min(6).required().email(),
-  password: Joi.string().min(6).required(),
-});
+const router = express.Router();
+router.use(express.json());
 
 // Home route
-router.get('/', (req, res) => {
+router.get('/api', (req, res) => {
   res.send('Home Page');
+  // res.json({ msg: 'hello' });
 });
 
-// auth login
-router.get('/register', (req, res) => {
-  // const userName = req.body.name;
-  // const userEmail = req.body.email;
-  // const userMobileNumber = req.body.mobileNumber;
-  // const userRole = req.body.role;
-  // const userPassword = req.body.password;
-
-  // const newUser = new User({
-  //   name: userName,
-  //   email: userEmail,
-  //   mobileNumber: userMobileNumber,
-  //   role: userRole,
-  // });
-  // newUser.save();
-  res.send('User Saved!');
-});
+// Register Route
+router
+  .route('/register')
+  .get((req, res) => {
+    res.send('Sign Up Page');
+  })
+  .post(auth.register);
 
 router.get('/login', (req, res, next) => {
   // const userEmail = req.body.email;

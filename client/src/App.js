@@ -8,8 +8,8 @@ function App() {
 
   useEffect(() => {
     fetch('/api')
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
+      .then((res) => res.text())
+      .then((data) => setData(data));
   }, []);
 
   console.log(data);
@@ -18,6 +18,7 @@ function App() {
     <div>
       <Navbar />
       {/* <Login /> */}
+      {!data ? 'loading' : data}
       <Body />
     </div>
   );
