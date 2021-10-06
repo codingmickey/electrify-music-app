@@ -1,8 +1,13 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const passportSetup = require('./config/passport-setup');
-const userRouter = require('./routes/user');
 const mongoose = require('mongoose');
+
+// Import Routes
+const authRoute = require('./routes/user');
+const authDashboard = require('./routes/authDashboard');
 
 // Express setting
 const app = express();
@@ -12,15 +17,12 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
 // Set up routes
-app.use(userRouter);
+app.use('/user', authRoute);
+app.use('/dashboard', authDashboard);
 
 // Connect to monogodb
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect('mongodb://localhost:27017/electrifyUserDB', () => {
-    console.log('Connect to mongodb');
-  });
-}
+const db = require('./config/db');
+db.connect();
 
 const PORT = process.env.PORT || 3001;
 

@@ -20,6 +20,14 @@ router
   })
   .post(auth.register);
 
+// Login Route
+router
+  .route('/login')
+  .get((req, res) => {
+    res.send('Login Page');
+  })
+  .post(auth.login);
+
 router.get('/login', (req, res, next) => {
   // const userEmail = req.body.email;
   // const userPassword = req.body.password;

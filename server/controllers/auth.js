@@ -1,6 +1,6 @@
-const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/user-model');
+const jwt = require('jsonwebtoken');
 
 const Joi = require('@hapi/joi');
 
@@ -23,16 +23,12 @@ exports.register = (req, res) => {
         const newUser = new User({ name, email, mobileNumber, role, password });
 
         try {
-          console.log(`This is the error`);
           const { error } = await registerSchema.validateAsync({
             name,
             password,
             email,
           });
-          console.log(error);
-
           if (error) {
-            console.log(error);
             res.status(400).json(error.details[0]);
             return;
           } else {
@@ -41,8 +37,7 @@ exports.register = (req, res) => {
             res.json({ msg: 'New user registered successfully' });
           }
         } catch (error) {
-          console.log(`this is the ${error}`);
-          -res.status(500).send(error.details[0].message);
+          res.status(500).send(error.details[0].message);
         }
       }
     });
@@ -51,16 +46,19 @@ exports.register = (req, res) => {
   }
 };
 
-// const userName = req.body.name;
-// const userEmail = req.body.email;
-// const userMobileNumber = req.body.mobileNumber;
-// const userRole = req.body.role;
-// const userPassword = req.body.password;
+// Login user
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
 
-// const newUsesr = new User({
-//   name: userName,
-//   email: userEmail,
-//   mobileNumber: userMobileNumber,
-//   role: userRole,
-// });
-// newUser.save();
+  // Checking of the email id
+  const user = await User.findOne({ email });
+  if (!user) return res.json({ msg: 'Incorrect Email ID' });
+
+  // Checking of the password
+  const validPassword = await bcrypt.compare(password, user.password);
+  if (!validPassword) return res.json({ msg: 'Incorrect Password' });
+
+  // Sending the jwt token
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  res.header('auth-token', token).send(token);
+};
