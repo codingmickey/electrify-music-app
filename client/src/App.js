@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Login from './components/Login/Login';
 import Navbar from './components/Navbar/Navbar';
-import Body from './components/Body/Body';
+import Home from './components/Home/Home';
 
 function App() {
   const [data, setData] = useState(null);
@@ -18,8 +18,8 @@ function App() {
     <div>
       <Navbar />
       {/* <Login /> */}
-      {!data ? 'loading' : data}
-      <Body />
+      {/* {!data ? 'loading' : data} */}
+      <Home />
     </div>
   );
 }

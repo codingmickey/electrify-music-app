@@ -1,14 +1,12 @@
 body {
   font-family: 'Montserrat', sans-serif;
   color: white;
-  background-color: black;
+  background-color: pink;
   margin: 0;
 }
 
 /* Navbar */
-.navbar {
-  padding: 0.1rem 14rem;
-}
+
 .heading-text {
   font-weight: 700;
 }

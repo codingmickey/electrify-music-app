@@ -10,6 +10,15 @@ const registerSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const maxTime = 3 * 24 * 60 * 60;
+
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.TOKEN_SECRET, {
+    // Time in seconds
+    expiresIn: maxTime,
+  });
+};
+
 // Register User
 exports.register = (req, res) => {
   const { name, email, mobileNumber, role, password } = req.body;
@@ -34,6 +43,12 @@ exports.register = (req, res) => {
           } else {
             newUser.password = await bcrypt.hash(password, 10);
             await newUser.save();
+            // Sending the jwt token in a cookie🍪
+            const token = createToken(newUser._id);
+            res.cookie('jwt', token, {
+              httpOnly: true,
+              maxAge: maxTime * 1000,
+            });
             res.json({ msg: 'New user registered successfully' });
           }
         } catch (error) {
@@ -59,6 +74,9 @@ exports.login = async (req, res) => {
   if (!validPassword) return res.json({ msg: 'Incorrect Password' });
 
   // Sending the jwt token
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
+    // Time in seconds
+    expiresIn: maxTime,
+  });
   res.header('auth-token', token).send(token);
 };

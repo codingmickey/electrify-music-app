@@ -1,9 +1,9 @@
 require('dotenv').config();
 
 const express = require('express');
-
 const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 // Import Routes
 const authRoute = require('./routes/user');
@@ -15,6 +15,7 @@ const app = express();
 // Using middleware
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Set up routes
 app.use('/user', authRoute);
