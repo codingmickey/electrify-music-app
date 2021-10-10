@@ -52,7 +52,7 @@ exports.register = (req, res) => {
             res.json({ msg: 'New user registered successfully' });
           }
         } catch (error) {
-          res.status(500).send(error.details[0].message);
+          res.status(500).json({ msg: error.details[0].message });
         }
       }
     });

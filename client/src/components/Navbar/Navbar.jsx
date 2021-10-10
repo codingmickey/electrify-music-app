@@ -22,7 +22,7 @@ const theme = createTheme({
   },
 });
 
-export default function ButtonAppBar() {
+function Navbar(props) {
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ flexGrow: 1 }}>
@@ -61,6 +61,7 @@ export default function ButtonAppBar() {
                 fontWeight: 600,
               }}
               color="inherit"
+              onClick={props.signUp}
             >
               Sign up
             </Button>
@@ -83,3 +84,5 @@ export default function ButtonAppBar() {
     </ThemeProvider>
   );
 }
+
+export default Navbar;

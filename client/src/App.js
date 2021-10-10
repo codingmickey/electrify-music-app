@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import Login from './components/Login/Login';
-import Navbar from './components/Navbar/Navbar';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import Login from './components/Auth/Login/Login';
+import Register from './components/Auth/Register/Register';
 import Home from './components/Home/Home';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1ed760',
+    },
+    secondary: {
+      main: '#000',
+    },
+  },
+  typography: {
+    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+  },
+});
 
 function App() {
   const [data, setData] = useState(null);
+  const [signUpPage, setSignUpPage] = useState(false);
+  const [logIn, setLoginIn] = useState(false);
 
   useEffect(() => {
     fetch('/api')
@@ -14,12 +33,15 @@ function App() {
 
   console.log(data);
 
+  function handleSignUpPage() {
+    setSignUpPage(true);
+  }
+
   return (
     <div>
-      <Navbar />
-      {/* <Login /> */}
-      {/* {!data ? 'loading' : data} */}
-      <Home />
+      <ThemeProvider theme={theme}>
+        {signUpPage ? <Register /> : <Home signUpPage={handleSignUpPage} />}
+      </ThemeProvider>
     </div>
   );
 }
