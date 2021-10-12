@@ -4,9 +4,9 @@ import Grid from '@mui/material/Grid';
 import girlListeningToMusic from '../../images/girl_listening_to_music.svg';
 import CustomButton from './Buttons/CustomButton';
 
-export default function Body() {
+function Body(props) {
   return (
-    <div>
+    <div className="body">
       <Box className="body-content" sx={{ flexGrow: 1 }}>
         <Grid container>
           <Grid item lg={6} sx={{ pl: '11.7rem', my: '5rem' }}>
@@ -14,8 +14,16 @@ export default function Body() {
             <p className="body-text">
               Thousands of songs. No charges involved.
             </p>
-            <CustomButton name="Sign Up" buttonColor="green-button" />
-            <CustomButton name="Log In" buttonColor="green-button" />
+            <CustomButton
+              name="Sign Up"
+              onClick={props.signUp}
+              buttonColor="green-button"
+            />
+            <CustomButton
+              name="Log In"
+              onClick={props.logIn}
+              buttonColor="green-button"
+            />
           </Grid>
           <Grid item lg={6}>
             <img
@@ -48,9 +56,12 @@ export default function Body() {
             bgc="#b22c15"
             col="#fff"
             buttonColor="red-button"
+            onClick={props.signUp}
           />
         </p>
       </div>
     </div>
   );
 }
+
+export default Body;

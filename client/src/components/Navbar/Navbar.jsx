@@ -75,6 +75,7 @@ function Navbar(props) {
                 fontWeight: 600,
               }}
               color="inherit"
+              onClick={props.logIn}
             >
               Login in
             </Button>

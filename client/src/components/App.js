@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import Login from './components/Auth/Login/Login';
-import Register from './components/Auth/Register/Register';
-import Home from './components/Home/Home';
+import Login from './Auth/Login/Login';
+import Register from './Auth/Register/Register';
+import Home from './Home/Home';
 
 const theme = createTheme({
   palette: {
@@ -23,7 +23,7 @@ const theme = createTheme({
 function App() {
   const [data, setData] = useState(null);
   const [signUpPage, setSignUpPage] = useState(false);
-  const [logIn, setLoginIn] = useState(false);
+  const [logInPage, setLogInPage] = useState(false);
 
   useEffect(() => {
     fetch('/api')
@@ -36,11 +36,20 @@ function App() {
   function handleSignUpPage() {
     setSignUpPage(true);
   }
+  function handleLogInPage() {
+    setLogInPage(true);
+  }
 
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {signUpPage ? <Register /> : <Home signUpPage={handleSignUpPage} />}
+        {signUpPage ? (
+          <Register />
+        ) : logInPage ? (
+          <Login />
+        ) : (
+          <Home signUpPage={handleSignUpPage} logInPage={handleLogInPage} />
+        )}
       </ThemeProvider>
     </div>
   );
