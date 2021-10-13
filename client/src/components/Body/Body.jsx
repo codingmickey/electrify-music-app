@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import girlListeningToMusic from '../../images/girl_listening_to_music.svg';
 import CustomButton from './Buttons/CustomButton';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function Body(props) {
   return (
@@ -14,16 +15,12 @@ function Body(props) {
             <p className="body-text">
               Thousands of songs. No charges involved.
             </p>
-            <CustomButton
-              name="Sign Up"
-              onClick={props.signUp}
-              buttonColor="green-button"
-            />
-            <CustomButton
-              name="Log In"
-              onClick={props.logIn}
-              buttonColor="green-button"
-            />
+            <Link to="/register">
+              <CustomButton name="Sign Up" buttonColor="green-button" />
+            </Link>
+            <Link to="/login">
+              <CustomButton name="Log In" buttonColor="green-button" />
+            </Link>
           </Grid>
           <Grid item lg={6}>
             <img
@@ -51,13 +48,14 @@ function Body(props) {
           Sign Up now!
         </p>
         <p className="body-ending-text">
-          <CustomButton
-            name="Sign Up!"
-            bgc="#b22c15"
-            col="#fff"
-            buttonColor="red-button"
-            onClick={props.signUp}
-          />
+          <Link to="/register">
+            <CustomButton
+              name="Sign Up!"
+              bgc="#b22c15"
+              col="#fff"
+              buttonColor="red-button"
+            />
+          </Link>
         </p>
       </div>
     </div>

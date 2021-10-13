@@ -7,8 +7,8 @@ import Footer from '../Footer/Footer';
 function Home(props) {
   return (
     <div>
-      <Navbar signUp={props.signUpPage} logIn={props.logInPage} />
-      <Body signUp={props.signUpPage} logIn={props.logInPage} />
+      <Navbar />
+      <Body />
       <Footer />
     </div>
   );

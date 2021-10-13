@@ -27,7 +27,8 @@ exports.register = (req, res) => {
     // Find user in db and save if not present
     User.findOne({ email: email }, async (err, user) => {
       if (err) throw err;
-      if (user) res.json({ msg: 'This email is already registered' });
+      if (user)
+        res.status(400).json({ msg: 'This email is already registered' });
       if (!user) {
         const newUser = new User({ name, email, mobileNumber, role, password });
 

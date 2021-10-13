@@ -3,6 +3,9 @@ body {
   color: white;
   margin: 0;
 }
+a {
+  color: inherit;
+}
 
 /* Navbar */
 .heading-text {
@@ -108,10 +111,10 @@ footer a:hover,
 .register-signup-button {
   margin-top: 2rem;
 }
-.register a {
+.register h4 a {
   color: #1ed760;
 }
-.register a:hover {
+.register h4 a:hover {
   color: #21e065;
 }
 
@@ -137,10 +140,10 @@ footer a:hover,
 .register-signup-button {
   margin-top: 2rem;
 }
-.login a {
+.login h4 a {
   color: #1ed760;
 }
-.login a:hover {
+.login h4 a:hover {
   color: #21e065;
 }
 /* Google Button */

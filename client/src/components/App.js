@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 import Login from './Auth/Login/Login';
 import Register from './Auth/Register/Register';
 import Home from './Home/Home';
@@ -16,14 +18,12 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ['Montserrat', 'sans-serif'].join(','),
+    fontFamily: ['Montserrat, sans-serif'].join(','),
   },
 });
 
 function App() {
   const [data, setData] = useState(null);
-  const [signUpPage, setSignUpPage] = useState(false);
-  const [logInPage, setLogInPage] = useState(false);
 
   useEffect(() => {
     fetch('/api')
@@ -33,26 +33,37 @@ function App() {
 
   console.log(data);
 
-  function handleSignUpPage() {
-    setSignUpPage(true);
-  }
-  function handleLogInPage() {
-    setLogInPage(true);
-  }
-
   return (
-    <div>
+    <Router>
       <ThemeProvider theme={theme}>
-        {signUpPage ? (
-          <Register />
-        ) : logInPage ? (
-          <Login />
-        ) : (
-          <Home signUpPage={handleSignUpPage} logInPage={handleLogInPage} />
-        )}
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
       </ThemeProvider>
-    </div>
+    </Router>
   );
+}
+
+{
+  /* 
+  {signUpPage ? (
+    <Register />
+  ) : logInPage ? (
+    <Login />
+  ) : (
+    <Home signUpPage={handleSignUpPage} logInPage={handleLogInPage} />
+  )}
+; */
 }
 
 export default App;

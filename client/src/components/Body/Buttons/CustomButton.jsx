@@ -5,7 +5,7 @@ function CustomButton(props) {
   const bgc = props.bgc ? props.bgc : '';
   const color = props.col ? props.col : '#2941ab';
   const classes = `link-button scale-button ${props.buttonColor}`;
-  const width = props.width ? props.width : '';
+  const type = props.type ? props.type : '';
   return (
     <Button
       variant="contained"
@@ -17,6 +17,7 @@ function CustomButton(props) {
       className={classes}
       size="large"
       onClick={props.onClick}
+      type={type}
     >
       {props.name}
     </Button>

@@ -12,15 +12,15 @@ passport.use(
       // options for google strategy
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/redirect',
+      callbackURL: '/user/auth/google/redirect',
     },
-    (accessToken, refreshToken, profile, cb) => {
+    (accessToken, refreshToken, profile, done) => {
       // check if user already exists in our db
       User.findOne({ googleId: profile.id }).then((currentUser) => {
         if (currentUser) {
           // user already there
           console.log('User Already there!');
-          cb(null, profile);
+          done(null, currentUser);
         } else {
           // Create new user
           new User({
@@ -30,14 +30,23 @@ passport.use(
             .save()
             .then((newUser) => {
               console.log(`New user created: ${newUser}`);
+              done(null, newUser);
             });
-          cb(null, profile);
         }
       });
     }
   )
 );
-
+passport.serializeUser((user, done) => done(null, user.id));
+passport.deserializeUser((id, done) => {
+  try {
+    User.findById(id, (err, user) => {
+      done(err, user);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 // passport.use(
 //   new JWTStrategy(
 //     {

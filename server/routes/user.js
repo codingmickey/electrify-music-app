@@ -2,6 +2,7 @@ const express = require('express');
 
 const oauth = require('../controllers/oauth');
 const auth = require('../controllers/auth');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 router.use(express.json());
@@ -42,6 +43,21 @@ router.get('/logout', (req, res) => {
 // OAUTH Routes for GOOGLE, login with google
 router.get('/auth/google', oauth.login);
 // callback route for google to redirect
-router.get('/auth/google/redirect', oauth.callback);
+router.get('/auth/google/redirect', oauth.callback, (req, res) => {
+  console.log(req.user);
+  const createToken = (id) => {
+    return jwt.sign({ id }, process.env.TOKEN_SECRET, {
+      // Time in seconds
+      expiresIn: maxTime,
+    });
+  };
+  const maxTime = 3 * 24 * 60 * 60;
+  const token = createToken(req.user._id);
+  res.cookie('jwt', token, {
+    httpOnly: true,
+    maxAge: maxTime * 1000,
+  });
+  res.redirect('/');
+});
 
 module.exports = router;
