@@ -9,8 +9,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 
 // Import Routes
-const authRoute = require('./routes/user');
-const authDashboard = require('./routes/authDashboard');
+const authRoute = require('./routes/authRoutes');
 
 // Express setting
 const app = express();
@@ -23,7 +22,6 @@ app.use(passport.initialize());
 
 // Set up routes
 app.use('/user', authRoute);
-app.use('/dashboard', authDashboard);
 
 app.get('/', (req, res) => {
   res.send('Running');
@@ -33,9 +31,8 @@ app.get('/', (req, res) => {
 const db = require('./config/db');
 db.connect();
 
-const PORT = process.env.PORT || 3001;
-
 // Listening on the given PORT
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server started listening on ${PORT}`);
 });

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Login from './Auth/Login/Login';
-import Register from './Auth/Register/Register';
-import Home from './Home/Home';
+import Login from './Login';
+import Register from './Register';
+import Home from './Home';
+import Secret from './Secret';
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,9 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
+          <Route path="/secret">
+            <Secret />
+          </Route>
           <Route path="/register">
             <Register />
           </Route>
@@ -52,18 +56,6 @@ function App() {
       </ThemeProvider>
     </Router>
   );
-}
-
-{
-  /* 
-  {signUpPage ? (
-    <Register />
-  ) : logInPage ? (
-    <Login />
-  ) : (
-    <Home signUpPage={handleSignUpPage} logInPage={handleLogInPage} />
-  )}
-; */
 }
 
 export default App;

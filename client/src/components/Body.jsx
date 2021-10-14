@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import girlListeningToMusic from '../../images/girl_listening_to_music.svg';
-import CustomButton from './Buttons/CustomButton';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import girlListeningToMusic from '../images/girl_listening_to_music.svg';
+import CustomButton from './CustomButton';
 
 function Body(props) {
   return (
@@ -13,7 +14,7 @@ function Body(props) {
           <Grid item lg={6} sx={{ pl: '11.7rem', my: '5rem' }}>
             <h2 className="body-header">Listening is everything</h2>
             <p className="body-text">
-              Thousands of songs. No charges involved.
+              Thousands of songs. Music that shocks :D
             </p>
             <Link to="/register">
               <CustomButton name="Sign Up" buttonColor="green-button" />
@@ -50,7 +51,7 @@ function Body(props) {
         <p className="body-ending-text">
           <Link to="/register">
             <CustomButton
-              name="Sign Up!"
+              name="Sign Up"
               bgc="#b22c15"
               col="#fff"
               buttonColor="red-button"

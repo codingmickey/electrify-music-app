@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import OfflineBoltRoundedIcon from '@mui/icons-material/OfflineBoltRounded';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Link } from 'react-router-dom';
 
 function Navbar(props) {
   return (
@@ -18,7 +18,6 @@ function Navbar(props) {
             edge="start"
             color="inherit"
             aria-label="menu"
-            // sx={{ p: 0 }}
           >
             {/* <Link to="/"> */}
             <OfflineBoltRoundedIcon

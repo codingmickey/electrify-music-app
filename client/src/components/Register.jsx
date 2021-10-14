@@ -10,7 +10,7 @@ import {
   RadioGroup,
   Radio,
 } from '@mui/material';
-import CustomButton from '../../Body/Buttons/CustomButton';
+import CustomButton from './CustomButton';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -22,7 +22,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   return (
     <IMaskInput
       {...other}
-      mask="(+##) 00000-00000"
+      mask="00000-00000"
       definitions={{
         '#': /[1-9]/,
       }}
@@ -112,8 +112,8 @@ function Register() {
                 </InputAdornment>
               ),
             }}
-            aria-describedby="outlined-password-helper-text"
             required
+            aria-describedby="outlined-password-helper-text"
           />
 
           {/* Name */}
@@ -124,8 +124,8 @@ function Register() {
             variant="outlined"
             name="name"
             value={values.name}
-            onChange={handleChange('name')}
             required
+            onChange={handleChange('name')}
           />
 
           {/* Mobile Number */}
@@ -148,13 +148,13 @@ function Register() {
             <FormControlLabel
               value="user"
               onChange={handleChange('role')}
-              control={<Radio required={true} />}
+              control={<Radio required />}
               label="User"
             />
             <FormControlLabel
               value="artist"
               onChange={handleChange('role')}
-              control={<Radio required={true} />}
+              control={<Radio required />}
               label="Artist"
             />
           </RadioGroup>

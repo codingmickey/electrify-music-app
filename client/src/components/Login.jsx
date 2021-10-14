@@ -6,7 +6,7 @@ import {
   InputAdornment,
   TextField,
 } from '@mui/material';
-import CustomButton from '../../Body/Buttons/CustomButton';
+import CustomButton from './CustomButton';
 
 import GoogleButton from 'react-google-button';
 
@@ -24,6 +24,7 @@ function Login() {
     role: '',
   });
 
+  // Handle change of any state
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -96,8 +97,8 @@ function Login() {
                 </InputAdornment>
               ),
             }}
-            aria-describedby="outlined-password-helper-text"
             required
+            aria-describedby="outlined-password-helper-text"
           />
 
           <div className="register-signup-button"></div>

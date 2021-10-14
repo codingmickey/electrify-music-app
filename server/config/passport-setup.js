@@ -2,10 +2,6 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/user-model');
 
-const passportJWT = require('passport-jwt');
-const JWTStrategy = passportJWT.Strategy;
-const ExtractJWT = passportJWT.ExtractJwt;
-
 passport.use(
   new GoogleStrategy(
     {
@@ -47,14 +43,3 @@ passport.deserializeUser((id, done) => {
     console.log(err);
   }
 });
-// passport.use(
-//   new JWTStrategy(
-//     {
-//       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-//       secretOrKey: keys.jwt.secret,
-//     },
-//     (jwtPayload, cb) => {
-//       User.findById;
-//     }
-//   )
-// );

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Navbar from '../Navbar/Navbar';
-import Body from '../Body/Body';
-import Footer from '../Footer/Footer';
+import Navbar from './Navbar';
+import Body from './Body';
+import Footer from './Footer';
 
 function Home(props) {
   return (
