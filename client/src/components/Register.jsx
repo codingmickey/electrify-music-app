@@ -87,6 +87,7 @@ function Register() {
             value={values.email}
             onChange={handleChange('email')}
             required
+            autoFocus="true"
           />
 
           {/* Password */}

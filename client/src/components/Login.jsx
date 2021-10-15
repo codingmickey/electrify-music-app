@@ -74,6 +74,7 @@ function Login() {
             value={values.email}
             onChange={handleChange('email')}
             required
+            autoFocus="true"
           />
           {/* Password */}
           <p className="pre-label">Password</p>

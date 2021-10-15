@@ -6,18 +6,24 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import OfflineBoltRoundedIcon from '@mui/icons-material/OfflineBoltRounded';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Navbar(props) {
+function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="secondary" position="static" sx={{ px: '10%' }}>
-        <Toolbar>
+      <AppBar
+        className="appbar-responsive"
+        color="secondary"
+        position="static"
+        sx={{ px: '10%' }}
+      >
+        <Toolbar className="toolbar-responsive">
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
+            className="iconButton-navbar"
           >
             {/* <Link to="/"> */}
             <OfflineBoltRoundedIcon
@@ -34,11 +40,11 @@ function Navbar(props) {
               letterSpacing: '-1.2px',
             }}
           >
-            <Link to="/">Electrify</Link>
+            Electrify
           </Typography>
           <Link to="/register">
             <Button
-              className="navbar-links"
+              className="navbar-links nav-register-button"
               size="large"
               sx={{
                 px: 2.3,
@@ -54,7 +60,7 @@ function Navbar(props) {
           </Link>
           <Link to="/login">
             <Button
-              className="navbar-links"
+              className="navbar-links nav-login-button"
               size="large"
               sx={{
                 px: 2.3,
@@ -64,7 +70,7 @@ function Navbar(props) {
               }}
               color="inherit"
             >
-              Login in
+              Log in
             </Button>
           </Link>
         </Toolbar>

@@ -24,12 +24,14 @@ a {
   color: #1ed760;
   /* padding-bottom: 5rem; */
 }
-.body-image {
-  padding-left: 2rem;
-  padding-top: 4rem;
-  height: 450px;
+.body-content-first {
+  padding-left: 11.7rem;
   z-index: 3;
-  position: relative;
+}
+.body-image {
+  padding-top: 4rem;
+  height: 75%;
+  z-index: 3;
 }
 .body-header {
   font-size: 4rem;
@@ -161,4 +163,89 @@ footer a:hover,
   box-shadow: rgba(66, 133, 244, 0.38) 0px 0px 5px 5px !important;
   color: rgb(66, 133, 244) !important;
   background-color: rgb(255, 255, 255) !important;
+}
+
+@media only screen and (max-width: 1250px) {
+  /* Body Styles  */
+  .body-content {
+    text-align: center;
+  }
+  .body-content-first {
+    padding: 0;
+    text-align: center;
+    margin: 5% auto !important;
+  }
+  .body-content-image {
+    margin: 0 auto !important;
+  }
+  .body-text {
+    font-size: 1.8rem;
+  }
+  .body-image {
+    width: 100%;
+    display: block;
+    padding-top: 3rem;
+  }
+  .body-wave {
+    bottom: 2rem;
+    z-index: 2;
+  }
+  .body-ending {
+    padding-top: 5rem;
+  }
+  .body-ending-text {
+    font-size: 4rem;
+    line-height: 1.3;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .navbar-links {
+    font-size: 1rem !important;
+  }
+  .appbar-responsive {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .toolbar-responsive {
+    align-content: flex-end;
+    justify-content: space-around;
+    padding-right: 0 !important;
+  }
+  .nav-register-button {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .body-wave {
+    bottom: 1rem;
+  }
+
+  .body-ending {
+    padding-top: 3rem;
+    position: relative;
+    top: -50px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .body-header {
+    font-size: 3.2rem;
+  }
+  .body-text {
+    font-size: 1.5rem;
+  }
+  .body-ending-text {
+    font-size: 3.6rem;
+  }
+  .iconButton-navbar {
+    padding-right: 0 !important;
+  }
+  .nav-login-button {
+    padding-right: 0.7rem !important;
+    padding-left: 0.5rem !important;
+  }
+  .toolbar-responsive {
+    padding-left: 0 !important;
+  }
 }
