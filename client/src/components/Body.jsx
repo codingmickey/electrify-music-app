@@ -11,8 +11,12 @@ function Body(props) {
     <div className="body">
       <Box className="body-content" sx={{ flexGrow: 1 }}>
         <Grid container>
-          <Grid className="body-content-first" item lg={6} sx={{ my: '5rem' }}>
-            <h2 className="body-header">Listening is everything</h2>
+          <Grid className="body-content-first" item md={6} sx={{ my: '5rem' }}>
+            <h2 className="body-header">
+              Listening is
+              <br />
+              everything
+            </h2>
             <p className="body-text">
               Thousands of songs. Music that shocks :D
             </p>
@@ -23,7 +27,7 @@ function Body(props) {
               <CustomButton name="Log In" buttonColor="green-button" />
             </Link>
           </Grid>
-          <Grid className="body-content-image" item lg={6}>
+          <Grid className="body-content-image" item md={6}>
             <img
               className="body-image"
               src={girlListeningToMusic}

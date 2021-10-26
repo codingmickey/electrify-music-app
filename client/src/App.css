@@ -179,7 +179,7 @@ footer a:hover,
     margin: 0 auto !important;
   }
   .body-text {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   .body-image {
     width: 100%;
@@ -200,6 +200,7 @@ footer a:hover,
 }
 
 @media screen and (max-width: 550px) {
+  /* Navbar */
   .navbar-links {
     font-size: 1rem !important;
   }
@@ -217,20 +218,34 @@ footer a:hover,
     padding-right: 0 !important;
     margin-left: 0 !important;
   }
+  /* Body */
   .body-wave {
     bottom: 1rem;
   }
-
   .body-ending {
     padding-top: 3rem;
     position: relative;
     top: -50px;
   }
+  .roundedbutton-navbar {
+    padding-right: 0 !important;
+    font-size: 2.5rem !important;
+  }
+  .iconButton-navbar {
+    padding-right: 0 !important;
+    font-size: 2.5rem !important;
+  }
+  .body-header {
+    font-size: 3.2rem;
+  }
+  .body-text {
+    font-size: 1.2rem;
+  }
 }
 
 @media screen and (max-width: 350px) {
   .body-header {
-    font-size: 3.2rem;
+    font-size: 3rem;
   }
   .body-text {
     font-size: 1.5rem;
@@ -240,12 +255,21 @@ footer a:hover,
   }
   .iconButton-navbar {
     padding-right: 0 !important;
+    font-size: 2.5rem !important;
+  }
+  .roundedbutton-navbar {
+    padding-right: 0 !important;
+    padding-left: 0.3rem !important;
+    font-size: 2.5rem !important;
   }
   .nav-login-button {
     padding-right: 0.7rem !important;
-    padding-left: 0.5rem !important;
+    padding-left: 0.8rem !important;
   }
   .toolbar-responsive {
     padding-left: 0 !important;
+  }
+  .body-text {
+    font-size: 1.1rem;
   }
 }

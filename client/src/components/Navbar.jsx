@@ -27,6 +27,7 @@ function Navbar() {
           >
             {/* <Link to="/"> */}
             <OfflineBoltRoundedIcon
+              className="roundedbutton-navbar"
               sx={{ fontSize: '3.5rem', paddingRight: 0 }}
             />
             {/* </Link> */}

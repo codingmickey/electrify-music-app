@@ -22,7 +22,7 @@ const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
   return (
     <IMaskInput
       {...other}
-      mask="00000-00000"
+      mask="0000000000"
       definitions={{
         '#': /[1-9]/,
       }}
@@ -139,6 +139,11 @@ function Register() {
             id="mobile-number"
             InputProps={{
               inputComponent: TextMaskCustom,
+            }}
+            inputProps={{
+              type: 'tel',
+              minlength: '10',
+              maxlength: '10',
             }}
             required
           />
