@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 
+// Importing packages
 const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -10,6 +11,7 @@ const passport = require('passport');
 
 // Import Routes
 const authRoute = require('./routes/authRoutes');
+const musicRoute = require('./routes/music-CRUD');
 
 // Express setting
 const app = express();
@@ -22,6 +24,7 @@ app.use(passport.initialize());
 
 // Set up routes
 app.use('/user', authRoute);
+app.use('/music', musicRoute);
 
 app.get('/', (req, res) => {
   res.send('Running');
