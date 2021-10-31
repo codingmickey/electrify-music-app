@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 
 const multipleFileSchema = new mongoose.Schema(
   {
-    title: {
+    albumTitle: {
       type: String,
       required: true,
     },
-    files: [Object],
+    artist: {
+      type: String,
+      required: true,
+    },
+    songs: [Object],
   },
   { timestamps: true }
 );

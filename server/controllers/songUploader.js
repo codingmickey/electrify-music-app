@@ -1,25 +1,29 @@
-const SingleFile = require('../models/singleFile');
-const MultipleFile = require('../models/multipleFile');
+const SingleFile = require('../models/singleSong');
+const MultipleFile = require('../models/multipleSongs');
 
-const singleFileUpload = async (req, res, next) => {
+// Single File Uploading controller
+const singleSongUpload = async (req, res, next) => {
   try {
-    const file = new SingleFile({
+    const song = new SingleFile({
       fileName: req.file.originalname,
       filePath: req.file.path,
       fileType: req.file.mimetype,
       fileSize: fileSizeFormatter(req.file.size, 2),
+      songTitle: req.body.title,
+      artist: req.body.artist,
     });
-    await file.save();
-    console.log(file);
-    res.status(201).send('File uploaded successfully');
+    await song.save();
+    console.log(song);
+    res.status(201).send('Song uploaded successfully');
   } catch (error) {
     res.status(400).send(error.message);
   }
 };
 
-const multipleFileUpload = async (req, res, next) => {
+// Multiple Files Uploading controller
+const multipleSongUpload = async (req, res, next) => {
   try {
-    let filesArray = [];
+    let songsArray = [];
 
     req.files.forEach((element) => {
       const file = {
@@ -28,23 +32,25 @@ const multipleFileUpload = async (req, res, next) => {
         fileType: element.mimetype,
         fileSize: fileSizeFormatter(element.size, 2),
       };
-      filesArray.push(file);
+      songsArray.push(file);
     });
 
-    const multipleFiles = new MultipleFile({
-      title: req.body.title,
-      files: filesArray,
+    const multipleSongs = new MultipleFile({
+      albumTitle: req.body.title,
+      artist: req.body.artist,
+      songs: songsArray,
     });
 
-    await multipleFiles.save();
-    console.log(multipleFiles);
+    await multipleSongs.save();
+    console.log(multipleSongs);
     res.status(201).send('Files uploaded successfully');
   } catch (error) {
     res.status(400).send(error.message);
   }
 };
 
-const getallSingleFiles = async (req, res, next) => {
+// Single File Viewing controller
+const getallSingleSongs = async (req, res, next) => {
   try {
     const files = await SingleFile.find();
     res.status(201).send(files);
@@ -53,7 +59,8 @@ const getallSingleFiles = async (req, res, next) => {
   }
 };
 
-const getallMultipleFiles = async (req, res, next) => {
+// Multiple File Viewing controller
+const getallMultipleSongs = async (req, res, next) => {
   try {
     const files = await MultipleFile.find();
     res.status(201).send(files);
@@ -62,6 +69,7 @@ const getallMultipleFiles = async (req, res, next) => {
   }
 };
 
+// Changing the file size to human readable format
 const fileSizeFormatter = (bytes, decimal) => {
   if (bytes === 0) {
     return '0 Bytes';
@@ -75,8 +83,8 @@ const fileSizeFormatter = (bytes, decimal) => {
 };
 
 module.exports = {
-  singleFileUpload,
-  multipleFileUpload,
-  getallSingleFiles,
-  getallMultipleFiles,
+  singleSongUpload,
+  multipleSongUpload,
+  getallSingleSongs,
+  getallMultipleSongs,
 };

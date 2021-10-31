@@ -18,6 +18,14 @@ const singleFileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    songTitle: {
+      type: String,
+      required: true,
+    },
+    artist: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
