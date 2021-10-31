@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const express = require('express');
 
+const path = require('path');
+
 // Importing packages
 const passportSetup = require('./config/passport-setup');
 const mongoose = require('mongoose');
@@ -17,10 +19,10 @@ const musicRoute = require('./routes/music-CRUD');
 const app = express();
 
 // Using middleware
-app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(passport.initialize());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Set up routes
 app.use('/user', authRoute);

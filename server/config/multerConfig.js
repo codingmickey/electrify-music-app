@@ -1,7 +1,4 @@
-'use strict';
-
 const multer = require('multer');
-const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,9 +14,14 @@ const storage = multer.diskStorage({
 
 const filefilter = (req, file, cb) => {
   if (
-    file.mimetype === 'image/png' ||
-    file.mimetype === 'image/jpg' ||
-    file.mimetype === 'image/jpeg'
+    // Auido Files
+    file.mimetype === 'audio/m4a' ||
+    file.mimetype === 'audio/mp3' ||
+    file.mimetype === 'audio/mp4' ||
+    file.mimetype === 'image/wav' ||
+    file.mimetype === 'image/wma' ||
+    file.mimetype === 'audio/flac' ||
+    file.mimetype === 'image/aac'
   ) {
     cb(null, true);
   } else {
