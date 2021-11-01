@@ -60,7 +60,7 @@ function Register() {
 
   return (
     <div className="register">
-      <h2 style={{ color: 'black' }}>
+      <h2 style={{ color: 'black', marginTop: 0, paddingTop: '0.83em' }}>
         <Link to="/">
           <OfflineBoltRoundedIcon
             sx={{ fontSize: '3.5rem', position: 'relative', top: '1rem' }}

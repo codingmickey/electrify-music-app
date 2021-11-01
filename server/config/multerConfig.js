@@ -18,10 +18,10 @@ const filefilter = (req, file, cb) => {
     file.mimetype === 'audio/m4a' ||
     file.mimetype === 'audio/mp3' ||
     file.mimetype === 'audio/mp4' ||
-    file.mimetype === 'image/wav' ||
-    file.mimetype === 'image/wma' ||
+    file.mimetype === 'audio/wav' ||
+    file.mimetype === 'audio/wma' ||
     file.mimetype === 'audio/flac' ||
-    file.mimetype === 'image/aac'
+    file.mimetype === 'audio/aac'
   ) {
     cb(null, true);
   } else {

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
 import Home from './Home';
 import Secret from './Secret';
+import Dashboard from './Dashboard/Dashboard';
 
 const theme = createTheme({
   palette: {
@@ -16,6 +17,9 @@ const theme = createTheme({
     },
     secondary: {
       main: '#000',
+    },
+    info: {
+      main: '#fff',
     },
   },
   typography: {
@@ -36,6 +40,25 @@ function App() {
 
   return (
     <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/secret">Secret</Link>
+          </li>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        </ul>
+      </nav>
       <ThemeProvider theme={theme}>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -44,6 +67,7 @@ function App() {
           <Route path="/secret" component={Secret} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
         </Switch>
       </ThemeProvider>
     </Router>
