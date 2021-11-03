@@ -1,33 +1,43 @@
-import { FormControl, Grid, TextField } from '@mui/material';
+import { Grid, Snackbar, TextField, Alert } from '@mui/material';
 import React, { useState } from 'react';
 import CustomButton from '../CustomButton';
 import axios from 'axios';
 
 function Upload() {
+  // Hooks
   const [values, setValues] = useState({
     // Single File upload hooks
     singleFile: {},
     selectSingleFile: false,
     singleTitle: '',
     singleArtist: '',
+    singleOpen: false,
 
     // Multiple File upload hooks
-    multipleFiles: [],
+    multipleFiles: {},
     selectMultipleFiles: false,
     multipleTitle: '',
     multipleArtist: '',
-
-    uploadStatus: Number,
+    multipleOpen: false,
   });
 
+  // handler functions
   const handleChange = (prop) => (event) => {
-    if (prop === 'singleFile')
-      setValues({
-        ...values,
-        singleFile: event.target.files[0],
-        selectSingleFile: true,
-      });
-    else if (prop === 'multipleFiles')
+    if (prop === 'singleFile') {
+      const singleSong = event.target.files[0];
+      if (singleSong) {
+        setValues({
+          ...values,
+          singleFile: singleSong,
+          selectSingleFile: true,
+        });
+      } else {
+        setValues({
+          ...values,
+          selectSingleFile: false,
+        });
+      }
+    } else if (prop === 'multipleFiles')
       setValues({
         ...values,
         multipleFiles: event.target.files,
@@ -36,7 +46,8 @@ function Upload() {
     else setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSingleSubmit = async (event) => {
+    event.preventDefault();
     // converting into the form object
     const formData = new FormData();
     formData.append('title', values.singleTitle);
@@ -49,20 +60,67 @@ function Upload() {
       method: 'POST',
       data: formData,
     };
-    axios.request(reqOptions).then(function (response) {
-      console.log(response);
-      setValues({ ...values, uploadStatus: response.status });
-    });
 
-    // Setting the hook back to default values
-    setValues({
-      ...values,
-      singleFile: {},
-      selectSingleFile: false,
-      singleTitle: '',
-      singleArtist: '',
-    });
+    try {
+      const response = await axios.request(reqOptions);
+      console.log(response.status);
+      // Setting the hook back to default values
+      setValues({
+        ...values,
+        singleFile: {},
+        selectSingleFile: false,
+        singleTitle: '',
+        singleArtist: '',
+        singleOpen: true,
+      });
+      console.log("this isin't running");
+      event.target.reset();
+    } catch (error) {
+      console.log(`error from the server ${error}`);
+    }
+  };
+
+  const handleMultipleSubmit = async (event) => {
     event.preventDefault();
+    console.log(values.multipleFiles[0]);
+    // converting into the form object
+    const formData = new FormData();
+    formData.append('title', values.multipleTitle);
+    formData.append('artist', values.multipleArtist);
+    for (let i = 0; i < values.multipleFiles.length; i++) {
+      formData.append('files', values.multipleFiles[i]);
+    }
+
+    // making request to the server
+    let reqOptions = {
+      url: '/music/multipleFiles',
+      method: 'POST',
+      data: formData,
+    };
+
+    try {
+      const response = await axios.request(reqOptions);
+      console.log(response);
+      // Setting the hook back to default values
+      setValues({
+        ...values,
+        multipleFiles: {},
+        selectMultipleFiles: false,
+        multipleTitle: '',
+        multipleArtist: '',
+        multipleOpen: true,
+      });
+      event.target.reset();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setValues({ ...values, singleOpen: false, multipleOpen: false });
   };
 
   const fileSizeFormatter = (bytes, decimal) => {
@@ -82,10 +140,9 @@ function Upload() {
       <Grid container spacing={2} className="dashboard-singleFile">
         <Grid item sm={6}>
           <h1> Single upload</h1>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSingleSubmit}>
             <TextField
               // Single song file Input
-              id="music-upload"
               name="file"
               type="file"
               required
@@ -109,36 +166,33 @@ function Upload() {
               <p>Select a file to show details</p>
             )}
 
-            <FormControl>
-              <TextField
-                // Single song Title
-                label="Song title"
-                name="title"
-                value={values.singleTitle}
-                inputProps={{
-                  style: { color: 'white' },
-                }}
-                required
-                autoComplete="off"
-                onChange={handleChange('singleTitle')}
-              />
-            </FormControl>
+            <TextField
+              // Single song Title
+              label="Song title"
+              name="title"
+              value={values.singleTitle}
+              inputProps={{
+                style: { color: 'white' },
+              }}
+              required
+              autoComplete="off"
+              onChange={handleChange('singleTitle')}
+            />
 
             <br />
             <br />
-            <FormControl>
-              <TextField
-                // Single song Artist name
-                label="Artist"
-                name="artist"
-                value={values.singleArtist}
-                inputProps={{
-                  style: { color: 'white' },
-                }}
-                required
-                onChange={handleChange('singleArtist')}
-              />
-            </FormControl>
+
+            <TextField
+              // Single song Artist name
+              label="Artist"
+              name="artist"
+              value={values.singleArtist}
+              inputProps={{
+                style: { color: 'white' },
+              }}
+              required
+              onChange={handleChange('singleArtist')}
+            />
 
             <br />
             <br />
@@ -147,68 +201,103 @@ function Upload() {
               name="Upload"
               col="black"
               buttonColor="green-button"
-              onSubmit={handleSubmit}
             />
           </form>
         </Grid>
+
         <Grid item sm={6}>
           <h1> Album upload</h1>
-          <form>
+          <form onSubmit={handleMultipleSubmit}>
             <TextField
               // Multiple song files Input
-              id="music-upload"
-              name="file"
+              name="files"
               type="file"
               required
               inputProps={{
                 style: { color: 'white' },
+                accept: 'audio/*',
                 multiple: true,
               }}
-              onChange={handleChange}
+              onChange={handleChange('multipleFiles')}
             />
-            <br />
-            <br />
-            <FormControl>
-              <TextField
-                // Multiple song Album title
-                label="Album title"
-                name="title"
-                inputProps={{
-                  style: { color: 'white' },
-                }}
-                required
-                fullWidth
-                autoComplete="off"
-                onChange={handleChange}
-              />
-            </FormControl>
+            {values.selectMultipleFiles ? (
+              Object.keys(values.multipleFiles).map((keyName, keyIndex) => (
+                <div key={keyIndex}>
+                  <p>Song no. {keyIndex + 1} </p>
+                  <p>Filename: {values.multipleFiles[keyName].name}</p>
+                  <p>Filetype: {values.multipleFiles[keyName].type}</p>
+                  <p>
+                    Size:{' '}
+                    {fileSizeFormatter(values.multipleFiles[keyName].size)}
+                  </p>
+                  <p>
+                    Last modified:{' '}
+                    {values.multipleFiles[
+                      keyName
+                    ].lastModifiedDate.toLocaleDateString()}
+                  </p>
+                  <br />
+                </div>
+              ))
+            ) : (
+              <p>Select a file to show details</p>
+            )}
+
+            <TextField
+              // Multiple song Album title
+              label="Album title"
+              name="title"
+              value={values.multipleTitle}
+              inputProps={{
+                style: { color: 'white' },
+              }}
+              required
+              autoComplete="off"
+              onChange={handleChange('multipleTitle')}
+            />
 
             <br />
             <br />
-            <FormControl>
-              <TextField
-                // Multiple songs Artist name
-                label="Artist"
-                name="artist"
-                inputProps={{
-                  style: { color: 'white' },
-                }}
-                required
-                onChange={handleChange}
-              />
-            </FormControl>
+
+            <TextField
+              // Multiple songs Artist name
+              label="Artist"
+              name="artist"
+              value={values.multipleArtist}
+              inputProps={{
+                style: { color: 'white' },
+              }}
+              required
+              onChange={handleChange('multipleArtist')}
+            />
 
             <br />
             <br />
             <CustomButton
-              // Multiple songs submit button
+              // Multiple songs upload button
               name="Upload"
               col="black"
               buttonColor="green-button"
-              onSubmit={handleSubmit}
             />
           </form>
         </Grid>
+
+        <Snackbar
+          open={values.singleOpen || values.multipleOpen}
+          autoHideDuration={4000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: '100%', color: 'black' }}
+            variant="filled"
+          >
+            {values.singleOpen
+              ? 'Song Uploaded successfully!'
+              : 'Album Uploaded successfully'}
+          </Alert>
+        </Snackbar>
       </Grid>
     </div>
   );

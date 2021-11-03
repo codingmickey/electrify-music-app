@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Home from './Home';
-import Secret from './Secret';
 import Dashboard from './Dashboard/Dashboard';
+import Upload from './Dashboard/Upload';
 
 const theme = createTheme({
   palette: {
@@ -21,6 +21,9 @@ const theme = createTheme({
     info: {
       main: '#fff',
     },
+    success: {
+      main: '#21e065',
+    },
   },
   typography: {
     fontFamily: ['Montserrat, sans-serif'].join(','),
@@ -28,25 +31,12 @@ const theme = createTheme({
 });
 
 function App() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch('/')
-      .then((res) => res.text())
-      .then((data) => setData(data));
-  }, []);
-
-  console.log(data);
-
   return (
     <Router>
       <nav>
         <ul>
           <li>
             <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/secret">Secret</Link>
           </li>
           <li>
             <Link to="/register">Register</Link>
@@ -57,6 +47,9 @@ function App() {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
+          <li>
+            <Link to="/upload">Upload</Link>
+          </li>
         </ul>
       </nav>
       <ThemeProvider theme={theme}>
@@ -64,10 +57,10 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/secret" component={Secret} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/upload" component={Upload} />
         </Switch>
       </ThemeProvider>
     </Router>

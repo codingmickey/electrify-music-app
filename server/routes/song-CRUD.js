@@ -15,25 +15,19 @@ uploadRouter.use(express.json());
 
 // Music CRUD
 
-// C - Upload single song
 uploadRouter
   .route('/singleFile')
-  .get((req, res) => {
-    res.send('Upload a single file');
-  })
+  // C - Upload single song
+  .get(getallSingleSongs)
+  // R - Get all single songs
   .post(upload.single('file'), singleSongUpload);
 
-// C - Upload multiple songs
 uploadRouter
   .route('/multipleFiles')
-  .get((req, res) => {
-    res.send('Upload multiple files');
-  })
+  // C - Upload multiple songs
+  .get(getallMultipleSongs)
+  // R - Get all single songs
   .post(upload.array('files'), multipleSongUpload);
-
-// R - Get all songs
-uploadRouter.route('/getSingleFiles').get(getallSingleSongs);
-uploadRouter.route('/getMultipleFiles').get(getallMultipleSongs);
 
 // U - Update
 
