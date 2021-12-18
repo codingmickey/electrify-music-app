@@ -16,7 +16,7 @@ function CustomButton(props) {
       }}
       className={classes}
       size="large"
-      onClick={props.onClick}
+      onClick={props.thing ? () => props.onClick(props.thing) : props.onClick}
       type={type}
     >
       {props.name}

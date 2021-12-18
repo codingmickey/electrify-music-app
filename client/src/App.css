@@ -196,6 +196,18 @@ footer a:hover,
   background-color: rgb(255, 255, 255) !important;
 }
 
+/* --------------------------- 404 Page --------------------------- */
+
+.notFound {
+  text-align: center;
+  padding-top: 5%;
+}
+.notFound a {
+  color: #1ed760;
+}
+.notFound a:hover {
+  color: #21e065;
+}
 /* --------------------------- 1080p Laptop screen --------------------------- */
 @media only screen and (max-width: 1250px) {
   /* Body Styles  */

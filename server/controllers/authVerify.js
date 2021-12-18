@@ -1,16 +1,14 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => {
-  console.log(req.header());
-  const token = req.header('jwt');
-  console.log(`token at verify ${token}`);
-  if (!token) res.status(403).json({ msg: 'Access Denied' });
+module.exports = (req, res) => {
+  const token = req.cookies.jwt;
+  console.log(`From the file authVerify ${token}`);
 
-  try {
+  if (token) {
     const verified = jwt.verify(token, process.env.TOKEN_SECRET);
     req.user = verified;
-    next();
-  } catch (err) {
-    res.json({ msg: err });
+    res.json({ msg: 'Access Granted' });
+  } else {
+    res.json({ msg: 'Access Denied' });
   }
 };

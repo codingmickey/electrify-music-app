@@ -8,7 +8,7 @@ passport.use(
       // options for google strategy
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/user/auth/google/redirect',
+      callbackURL: 'http://localhost:3000/dashboard',
     },
     (accessToken, refreshToken, profile, done) => {
       // check if user already exists in our db
@@ -30,8 +30,8 @@ passport.use(
             });
         }
       });
-    }
-  )
+    },
+  ),
 );
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {

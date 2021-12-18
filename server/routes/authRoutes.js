@@ -23,12 +23,6 @@ router
   })
   .post(auth.login);
 
-router.get('/login', (req, res, next) => {
-  // const userEmail = req.body.email;
-  // const userPassword = req.body.password;
-  console.log('Login Route');
-});
-
 // auth logout
 router.get('/logout', (req, res) => {
   // handle with passport

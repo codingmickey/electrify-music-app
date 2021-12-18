@@ -9,6 +9,7 @@ import Register from './Register';
 import Home from './Home';
 import Dashboard from './Dashboard/Dashboard';
 import Upload from './Dashboard/Upload';
+import NotFound from './NotFound';
 
 const theme = createTheme({
   palette: {
@@ -61,6 +62,7 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/upload" component={Upload} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </ThemeProvider>
     </Router>

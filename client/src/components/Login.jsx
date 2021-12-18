@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import OfflineBoltRoundedIcon from '@mui/icons-material/OfflineBoltRounded';
 import {
   FormControl,
@@ -6,13 +6,14 @@ import {
   InputAdornment,
   TextField,
 } from '@mui/material';
+import axios from 'axios';
 import CustomButton from './CustomButton';
 
 import GoogleButton from 'react-google-button';
 
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Login() {
   const [values, setValues] = useState({
@@ -22,6 +23,20 @@ function Login() {
     name: '',
     mobileNumber: '',
     role: '',
+  });
+  let history = useHistory();
+
+  useEffect(() => {
+    let reqOptions = {
+      url: '/verify',
+      method: 'GET',
+    };
+    axios.request(reqOptions).then(function (response) {
+      console.log(response.data.msg);
+      if (response.data.msg === 'Access Granted') {
+        history.push('/dashboard');
+      }
+    });
   });
 
   // Handle change of any state
@@ -91,8 +106,7 @@ function Login() {
                     aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
+                    edge="end">
                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>

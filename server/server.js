@@ -14,6 +14,7 @@ const passport = require('passport');
 // Import Routes
 const authRoute = require('./routes/authRoutes');
 const musicRoute = require('./routes/song-CRUD');
+const dashboard = require('./routes/authDashboard');
 
 // Express setting
 const app = express();
@@ -27,6 +28,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Set up routes
 app.use('/user', authRoute);
 app.use('/music', musicRoute);
+app.use(dashboard);
+
 
 app.get('/', (req, res) => {
   res.send('Running');

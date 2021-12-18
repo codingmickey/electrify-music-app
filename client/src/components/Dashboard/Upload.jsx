@@ -293,9 +293,21 @@ function Upload() {
             sx={{ width: '100%', color: 'black' }}
             variant="filled"
           >
-            {values.singleOpen
-              ? 'Song Uploaded successfully!'
-              : 'Album Uploaded successfully'}
+            Song Uploaded successfully!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={values.multipleOpen}
+          autoHideDuration={4000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: '100%', color: 'black' }}
+            variant="filled"
+          >
+            Album Uploaded successfully!
           </Alert>
         </Snackbar>
       </Grid>
